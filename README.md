@@ -4,10 +4,10 @@ in-memory version and mysql version service implementation. switch through `__us
 
 ## Install
 
-`pip3 install -r requirements.txt`
-
-`python3 app.py`
-
+```
+pip3 install -r requirements.txt
+python3 app.py
+```
 
 ### List comprehension
 
