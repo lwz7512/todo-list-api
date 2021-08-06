@@ -24,11 +24,9 @@ mysql> CREATE TABLE todolist (id INT NOT NULL, name VARCHAR(100) NOT NULL, statu
 python3 app.py
 ```
 
-### List comprehension
+### API
 
-```py
-# result = list(filter(lambda item: item['id'] == int(id), items))
-result = [item for item in items if item['id'] == int(id)]
-```
-
-## SQL Queries
+- GET http://localhost:3000
+- POST /api/v1/item/1, request body: {"id": 1, "name": "coding"}
+- PUT /api/v1/item/1, request body: {"id": 1, "name": "hiking"}
+- DELETE /api/v1/item/1

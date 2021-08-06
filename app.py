@@ -9,7 +9,7 @@ from tornado.ioloop import IOLoop
 from db import ping_db
 
 
-__use_db = False
+__use_db = True
 todo_implementation = __import__('dao' if __use_db else 'mao')
 
 

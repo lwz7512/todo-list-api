@@ -26,7 +26,7 @@ class TodoItem(PageHandler):
     # get one todo
     def get(self, id=None):
         cursor = get_cursor()
-        values = (int(id))
+        values = (int(id),)
         result = cursor.execute("SELECT * from {0} WHERE id=%s".format(table_name), values)
         todo = cursor.fetchone() if result else {}
         self.json_response(todo)
@@ -55,6 +55,16 @@ class TodoItem(PageHandler):
     def put(self, id):
         pass
 
-    # TODO: delete one todo
+    # delete one todo
     def delete(self, id):
-        pass
+        connection = get_connection()
+        cursor = get_cursor()
+        if id:
+            values = (int(id),)
+            result = cursor.execute("DELETE FROM {0} WHERE id=%s".format(table_name), values)
+            connection.commit()
+            message = {"message": "deleted"} if result else {"message": "doesnt exist!"}
+            self.json_response(message)
+        # finally clear connection
+        cursor.close()
+        close_db()
