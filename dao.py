@@ -51,9 +51,21 @@ class TodoItem(PageHandler):
         close_db()
 
 
-    # TODO: update one todo
+    # update one todo
     def put(self, id):
-        pass
+        connection = get_connection()
+        cursor = get_cursor()
+        if self.request.body:
+            item = self.get_json_arg(self.request.body, ['name'])
+            values = (item["name"], int(id))
+            cursor.execute("UPDATE {0} SET name=%s WHERE id=%s".format(table_name), values)
+            connection.commit() # commit this operation to save new record!
+            self.json_response(item)
+        else:
+            self.json_error()
+        # finally clear connection
+        cursor.close()
+        close_db()
 
     # delete one todo
     def delete(self, id):
